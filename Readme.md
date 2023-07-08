@@ -4,7 +4,7 @@
 ```
 MY_SPACE = 'スペースのURL（末尾のスラッシュは無し）'
 API_KEY = 'Api Key'
-EXCLUSION_PROJECTS = 'ProjectIDの配列'
+EXCLUSION_PROJECTS = 'ユーザー取得を除外するプロジェクトのIDの配列'
 ```
 # 一括処理
 ## getUsersToBeDeleted.js
