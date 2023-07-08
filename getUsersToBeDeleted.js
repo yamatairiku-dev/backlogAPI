@@ -1,7 +1,7 @@
 'use strict'
 const axios = require('axios')
 const fs = require('fs')
-const output = './output/'
+const output = './output'
 require('dotenv').config()
 
 // ユーザー取得を除外するプロジェクト
@@ -46,9 +46,9 @@ const getAllUsers = () => {
   return new Promise((resolve, reject) => {
     allUsers.then(result => {
       // ユーザーID，ユーザー名，メールアドレスを抽出
-      const userIDs = result.data.map(e => [e.id, e.name, e.mailAddress])
-      console.log('全ユーザー数: ', userIDs.length)
-      resolve(userIDs)
+      const allUserIDs = result.data.map(e => [e.id, e.name, e.mailAddress, e.lastLoginTime])
+      console.log('全ユーザー数: ', allUserIDs.length)
+      resolve(allUserIDs)
     }).catch(err => reject(err))
   })
 }
@@ -57,10 +57,10 @@ Promise.all([getAllUsers(), getActiveUsers()]).then(result => {
   const allUsers = result[0]
   const activeUsers = result[1]
 
-  // 全ユーザーのIDからアクティブユーザーのIDを削除
+  // 全ユーザーのIDをアクティブユーザー以外でフィルタ
   const usersIdsToBeDeleted = allUsers.map(e => e[0]).filter(val => !activeUsers.includes(val))
 
-  // 削除対象ユーザーのIDからユーザー情報を付加
+  // 全ユーザーを削除対象ユーザーIDでフィルタ
   const usersToBeDeleted = allUsers.filter(val => usersIdsToBeDeleted.includes(val[0]))
   console.log('削除ユーザー数: ', usersToBeDeleted.length)
   console.log(usersToBeDeleted)
@@ -69,4 +69,5 @@ Promise.all([getAllUsers(), getActiveUsers()]).then(result => {
   let usersToBeDeletedCSV = ''
   usersToBeDeleted.map(e => (usersToBeDeletedCSV += e.join(',') + '\n'))
   fs.writeFileSync(`${output}/usersToBeDeleted.csv`, usersToBeDeletedCSV)
+  console.log('done')
 }).catch(err => console.log('エラー', err))

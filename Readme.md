@@ -20,6 +20,9 @@ mkdir output
 ## getUsersToBeDeleted.js
 ### 機能
 プロジェクトに参加していないユーザーを出力する　=> usersToBeDeleted.csv
+## getUsersNotLoggedIn.js
+### 機能
+しばらくログインしていないユーザーを出力する　=> getUsersNotLoggedIn.csv
 # 分割処理
 ## 01getUsers.js
 ### 機能

@@ -1,10 +1,9 @@
 'use strict'
-// プロジェクトIDをJSON出力
 const axios = require('axios')
 const fs = require('fs')
-const output = './output/'
-const projectIDs = require(`${output}/projectIDs.json`)
+const output = './output'
 require('dotenv').config()
+const projectIDs = require(`${output}/projectIDs.json`)
 
 const pjMember = []
 let userCSVs = ''

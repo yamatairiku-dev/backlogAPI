@@ -1,5 +1,5 @@
 const fs = require('fs')
-const output = './output/'
+const output = './output'
 const pjMember = require(`${output}/pjMember.json`)
 const users = require(`${output}/userIDs.json`)
 const activeUserIDs = []
