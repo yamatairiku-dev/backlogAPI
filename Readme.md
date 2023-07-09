@@ -9,7 +9,8 @@ touch .env
 ```
 MY_SPACE = 'スペースのURL（末尾のスラッシュは無し）'
 API_KEY = '管理者権限のAPIキー'
-EXCLUSION_PROJECTS = 'ユーザー取得を除外するプロジェクトのIDの配列'
+EXCLUSION_PROJECTS = ['ユーザー取得を除外するプロジェクトのIDの配列']
+NOT_LOGGED_IN_DAYS = 最近ログインしていない期間（日数を数字で）
 ```
 ## 出力フォルダー
 ファイルの出力先フォルダーを作成

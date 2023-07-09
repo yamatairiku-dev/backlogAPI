@@ -4,12 +4,9 @@ const fs = require('fs')
 const output = './output'
 require('dotenv').config()
 
-const getUsersUrl = '/api/v2/users'
-
 const asyncFunc = async () => {
-  const result = await axios.get(`${process.env.MY_SPACE}${getUsersUrl}?apiKey=${process.env.API_KEY}`)
+  const result = await axios.get(`${process.env.MY_SPACE}/api/v2/users?apiKey=${process.env.API_KEY}`)
     .catch(() => console.log('エラー'))
-  // console.log(result)
   const userIDs = result.data.map(e => [e.id, e.name, e.mailAddress, e.lastLoginTime])
   console.log('ユーザー数: ' + userIDs.length)
   fs.writeFileSync(`${output}/userIDs.json`, JSON.stringify(userIDs))

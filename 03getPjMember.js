@@ -8,8 +8,6 @@ const projectIDs = require(`${output}/projectIDs.json`)
 const pjMember = []
 let userCSVs = ''
 
-// projectIDs = ['NWSYS', 'HSSYS']
-
 const asyncFunc = async () => {
   let count = 0
   for (let i = 0; i < projectIDs.length; i++) {
