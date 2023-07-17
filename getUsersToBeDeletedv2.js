@@ -10,6 +10,7 @@ const exclusionProjects = process.env.EXCLUSION_PROJECTS
 
 // 全ユーザーを取得
 const allUsers = axios.get(`${process.env.MY_SPACE}/api/v2/users?apiKey=${process.env.API_KEY}`)
+  .then(result => result.data.map(e => [e.id, e.name, e.mailAddress, e.lastLoginTime]))
 
 // 全プロジェクトを取得
 const allProjects = axios.get(`${process.env.MY_SPACE}/api/v2/projects?apiKey=${process.env.API_KEY}&archived=false&all=true`)
@@ -43,20 +44,11 @@ const getActiveUsers = () => {
   })
 }
 
-const getAllUsers = () => {
-  return new Promise((resolve, reject) => {
-    allUsers.then(result => {
-      // ユーザーID，ユーザー名，メールアドレスを抽出
-      const allUserIDs = result.data.map(e => [e.id, e.name, e.mailAddress, e.lastLoginTime])
-      console.log('全ユーザー数: ', allUserIDs.length)
-      resolve(allUserIDs)
-    }).catch(err => reject(err))
-  })
-}
-
-Promise.all([getAllUsers(), getActiveUsers()]).then(result => {
+Promise.all([allUsers, getActiveUsers()]).then(result => {
+  // ユーザーID，ユーザー名，メールアドレスを抽出
   const allUsers = result[0]
   const activeUsers = result[1]
+  console.log('全ユーザー数: ', allUsers.length)
 
   // 全ユーザーのIDをアクティブユーザー以外でフィルタ
   const usersIdsToBeDeleted = allUsers.map(e => e[0]).filter(val => !activeUsers.includes(val))
