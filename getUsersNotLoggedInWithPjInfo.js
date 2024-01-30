@@ -68,6 +68,19 @@ allProjects
           }
         });
       // console.log(usersNotLoggedIn);
+      // 日付フォーマットを整える
+      // sv-SEロケールはYYYY-MM-DD形式の日付文字列を返す
+      usersNotLoggedIn.map((e) => (e[3] = e[3].toLocaleDateString("sv-SE")));
+      // ヘッダーを付加
+      const headerString = [
+        "ユーザーID",
+        "ユーザー名",
+        "メールアドレス",
+        "最終ログイン",
+        "プロジェクトキー",
+        "プロジェクト名",
+      ];
+      usersNotLoggedIn.unshift(headerString);
       console.log(
         `${process.env.NOT_LOGGED_IN_DAYS}日間ログインしていない延べユーザー数: `,
         usersNotLoggedIn.length

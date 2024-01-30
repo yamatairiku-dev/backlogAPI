@@ -64,7 +64,7 @@ const getAllUsers = () => {
           e.id,
           e.name,
           e.mailAddress,
-          e.lastLoginTime,
+          new Date(e.lastLoginTime),
         ]);
         console.log("全ユーザー数: ", allUserIDs.length);
         resolve(allUserIDs);
@@ -88,8 +88,18 @@ Promise.all([getAllUsers(), getActiveUsers()])
       usersIdsToBeDeleted.includes(val[0])
     );
     console.log("削除ユーザー数: ", usersToBeDeleted.length);
+    // 日付フォーマットを整える
+    // sv-SEロケールはYYYY-MM-DD形式の日付文字列を返す
+    usersToBeDeleted.map((e) => (e[3] = e[3].toLocaleDateString("sv-SE")));
+    // ヘッダーを付加;
+    const headerString = [
+      "ユーザーID",
+      "ユーザー名",
+      "メールアドレス",
+      "最終ログイン",
+    ];
+    usersToBeDeleted.unshift(headerString);
     console.log(usersToBeDeleted);
-
     // CSVファイルとして出力
     let usersToBeDeletedCSV = "";
     usersToBeDeleted.map((e) => (usersToBeDeletedCSV += e.join(",") + "\n"));
