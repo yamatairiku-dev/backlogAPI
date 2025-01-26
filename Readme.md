@@ -17,7 +17,11 @@ NOT_LOGGED_IN_DAYS = 最近ログインしていない期間（日数を数字�
 ```
 mkdir output
 ```
-
+## モジュールのインストール
+プログラムを実行するためのモジュールをインストールします
+```
+npm install
+```
 # 一括処理
 ## getUsersToBeDeleted.js
 ### 機能
